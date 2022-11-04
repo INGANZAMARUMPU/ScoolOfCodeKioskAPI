@@ -6,6 +6,9 @@ class Produit(models.Model):
 	nom = models.CharField(max_length=64)
 	prix_vente = models.IntegerField()
 
+	def __str__(self):
+		return f"{self.nom} valant {self.prix_vente}FBu"
+
 class Achat(models.Model):
 	id = models.BigAutoField(primary_key=True)
 	produit = models.ForeignKey(Produit, on_delete=models.PROTECT)
@@ -14,6 +17,9 @@ class Achat(models.Model):
 	date = models.DateField(auto_now_add=True)
 	user = models.ForeignKey(User, on_delete=models.PROTECT)
 
+	def __str__(self):
+		return f"{self.quantite} {self.produit.nom}s coutant {self.prix_total}FBu"
+
 class Vente(models.Model):
 	id = models.BigAutoField(primary_key=True)
 	produit = models.ForeignKey(Produit, on_delete=models.PROTECT)
@@ -21,3 +27,6 @@ class Vente(models.Model):
 	prix = models.IntegerField()
 	date = models.DateField(auto_now_add=True)
 	user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+	def __str__(self):
+		return f"{self.quantite} {self.produit.nom} à {self.prix_total}FBu"
