@@ -9,9 +9,9 @@ class ProduitSerializer(serializers.ModelSerializer):
 class AchatSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Achat
-		fields = "__all__"
+		exclude = ["user"]
 
 class VenteSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Vente
-		fields = "__all__"
+		exclude = ["user"]
