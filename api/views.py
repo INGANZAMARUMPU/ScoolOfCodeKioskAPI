@@ -1,5 +1,16 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import viewsets
 
-def home(request):
-	return HttpResponse("<h1>CODE IRAGANJE</h1>")
+from .models import *
+from .serializers import *
+
+class ProduitViewSet(viewsets.ModelViewSet):
+	queryset = Produit.objects.all()
+	serializer_class = ProduitSerializer
+
+class AchatViewSet(viewsets.ModelViewSet):
+	queryset = Achat.objects.all()
+	serializer_class = AchatSerializer
+
+class VenteViewSet(viewsets.ModelViewSet):
+	queryset = Vente.objects.all()
+	serializer_class = VenteSerializer
