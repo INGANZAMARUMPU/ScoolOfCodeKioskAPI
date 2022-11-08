@@ -11,6 +11,12 @@ class AchatViewSet(viewsets.ModelViewSet):
 	queryset = Achat.objects.all()
 	serializer_class = AchatSerializer
 
+	def perform_create(self, serializer):
+		serializer.save(
+			user = self.request.user
+		)
+	    
+
 class VenteViewSet(viewsets.ModelViewSet):
 	queryset = Vente.objects.all()
 	serializer_class = VenteSerializer
