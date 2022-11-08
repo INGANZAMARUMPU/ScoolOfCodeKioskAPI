@@ -7,7 +7,7 @@ class Produit(models.Model):
 	prix_vente = models.IntegerField()
 
 	def __str__(self):
-		return f"{self.nom} valant {self.prix_vente}FBu"
+		return f"{self.nom} de {self.prix_vente}FBu"
 
 class Achat(models.Model):
 	id = models.BigAutoField(primary_key=True)

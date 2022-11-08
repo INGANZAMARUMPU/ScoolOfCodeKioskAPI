@@ -23,5 +23,6 @@ class VenteViewSet(viewsets.ModelViewSet):
 
 	def perform_create(self, serializer):
 		serializer.save(
-			user = self.request.user
+			user = self.request.user,
+			prix = serializer.validated_data["quantite"] * serializer.validated_data["produit"].prix_vente
 		)

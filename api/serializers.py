@@ -14,14 +14,17 @@ class AchatSerializer(serializers.ModelSerializer):
 	def to_representation(self, obj):
 		serializer = super().to_representation(obj)
 		serializer["user"] = obj.user.username
+		serializer["produit"] = str(obj.produit)
 		return serializer
 
 class VenteSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Vente
-		exclude = ["user"]
+		exclude = ["user", "prix"]
 
 	def to_representation(self, obj):
 		serializer = super().to_representation(obj)
 		serializer["user"] = obj.user.username
+		serializer["produit"] = str(obj.produit)
+		serializer["prix"] = obj.prix
 		return serializer
