@@ -20,3 +20,8 @@ class AchatViewSet(viewsets.ModelViewSet):
 class VenteViewSet(viewsets.ModelViewSet):
 	queryset = Vente.objects.all()
 	serializer_class = VenteSerializer
+
+	def perform_create(self, serializer):
+		serializer.save(
+			user = self.request.user
+		)

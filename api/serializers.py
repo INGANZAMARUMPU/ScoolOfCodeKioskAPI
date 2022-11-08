@@ -20,3 +20,8 @@ class VenteSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Vente
 		exclude = ["user"]
+
+	def to_representation(self, obj):
+		serializer = super().to_representation(obj)
+		serializer["user"] = obj.user.username
+		return serializer
