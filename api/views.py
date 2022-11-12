@@ -15,14 +15,15 @@ class AchatViewSet(viewsets.ModelViewSet):
 		serializer.save(
 			user = self.request.user
 		)
-	    
 
 class VenteViewSet(viewsets.ModelViewSet):
 	queryset = Vente.objects.all()
 	serializer_class = VenteSerializer
 
 	def perform_create(self, serializer):
+		prix_vente = serializer.validated_data["produit"].prix_vente
+		quantite = serializer.validated_data["quantite"]
 		serializer.save(
 			user = self.request.user,
-			prix = serializer.validated_data["quantite"] * serializer.validated_data["produit"].prix_vente
+			prix =  quantite*prix_vente
 		)
