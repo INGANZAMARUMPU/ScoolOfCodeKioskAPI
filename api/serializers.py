@@ -10,19 +10,37 @@ class ProduitSerializer(serializers.ModelSerializer):
 	def to_representation(self, obj):
 		serializer = super().to_representation(obj)
 
-		achats = Achat.objects.filter(produit=obj)
-		qtt_achat = 0
-		prix_achat = 0
-		for achat in achats:
-			qtt_achat += achat.quantite
-			prix_achat += achat.prix_total
+		## calcule quantite, total_achats, total_ventes
+		# achats = Achat.objects.filter(produit=obj)
+		# qtt_achat = 0
+		# prix_achat = 0
+		# for achat in achats:
+		# 	qtt_achat += achat.quantite
+		# 	prix_achat += achat.prix_total
 
-		ventes = Vente.objects.filter(produit=obj)
-		qtt_vente = 0
-		prix_vente = 0
-		for vente in ventes:
-			qtt_vente += vente.quantite
-			prix_vente += vente.prix
+		# ventes = Vente.objects.filter(produit=obj)
+		# qtt_vente = 0
+		# prix_vente = 0
+		# for vente in ventes:
+		# 	qtt_vente += vente.quantite
+		# 	prix_vente += vente.prix
+
+		# django Version of totals computation
+		qtt_achat = Achat.objects.filter(produit=obj).aggregate(
+			models.Sum('quantite')
+		)["quantite__sum"]
+
+		prix_achat = Achat.objects.filter(produit=obj).aggregate(
+			models.Sum('prix_total')
+		)["prix_total__sum"]
+
+		qtt_vente = Vente.objects.filter(produit=obj).aggregate(
+			models.Sum('quantite')
+		)["quantite__sum"]
+
+		prix_vente = Vente.objects.filter(produit=obj).aggregate(
+			models.Sum('prix')
+		)["prix__sum"]
 
 		serializer["quantite"] = qtt_achat - qtt_vente
 		serializer["total_achats"] = prix_achat
