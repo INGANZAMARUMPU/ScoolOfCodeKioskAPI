@@ -28,19 +28,19 @@ class ProduitSerializer(serializers.ModelSerializer):
 		# django Version of totals computation
 		qtt_achat = Achat.objects.filter(produit=obj).aggregate(
 			models.Sum('quantite')
-		)["quantite__sum"]
+		)["quantite__sum"] or 0
 
 		prix_achat = Achat.objects.filter(produit=obj).aggregate(
 			models.Sum('prix_total')
-		)["prix_total__sum"]
+		)["prix_total__sum"] or 0
 
 		qtt_vente = Vente.objects.filter(produit=obj).aggregate(
 			models.Sum('quantite')
-		)["quantite__sum"]
+		)["quantite__sum"] or 0
 
 		prix_vente = Vente.objects.filter(produit=obj).aggregate(
 			models.Sum('prix')
-		)["prix__sum"]
+		)["prix__sum"] or 0
 
 		serializer["quantite"] = qtt_achat - qtt_vente
 		serializer["total_achats"] = prix_achat

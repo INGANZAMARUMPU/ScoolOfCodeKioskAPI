@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Produit(models.Model):
 	id = models.AutoField(primary_key=True)
-	nom = models.CharField(max_length=64)
+	nom = models.CharField(max_length=64, unique=True)
 	prix_vente = models.IntegerField()
 
 	def __str__(self):
