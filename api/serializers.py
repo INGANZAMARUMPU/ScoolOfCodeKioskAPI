@@ -1,5 +1,9 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import *
+
+class TokenPairSerializer(TokenObtainPairSerializer):
+    pass
 
 class ProduitSerializer(serializers.ModelSerializer):
 
@@ -71,3 +75,4 @@ class VenteSerializer(serializers.ModelSerializer):
 		serializer["produit"] = str(obj.produit)
 		serializer["prix"] = obj.prix
 		return serializer
+
