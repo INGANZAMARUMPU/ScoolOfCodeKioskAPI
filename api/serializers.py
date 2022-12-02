@@ -3,7 +3,13 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import *
 
 class TokenPairSerializer(TokenObtainPairSerializer):
-    pass
+
+	def validate(self, attrs):
+		data = super().validate(attrs)
+		data['username'] = self.user.username
+
+		return data
+
 
 class ProduitSerializer(serializers.ModelSerializer):
 
